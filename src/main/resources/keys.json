@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "meli-galaxia",
+  "private_key_id": "cd1d7583353cd917b6a92f73abec01d14568c1b0",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCYuqqIdVRK1AKU\nHe9QRofGs2Bo4G0uIem4A5j4Am38s7h6zGp6SdpyDfMPXGrpFH+4C6iakcPa9wfI\nUcPmEWbKmKD+8tKQxEdjkRQNk7xFqS7x7DpEIN7SjHWRD20PKyInruwEbqdDF/Te\njIo+yomqGCm68MG9iJlJKsKfAHHiikIpBj40DuvQ8LqfhXuxkGgFwACEmf3sqYtm\nBohYPjdI3WFzf5nXh3BInoNm282uq3N3TZiEaF+si8dBckRNrxMDJMkO0qmxXQSX\nTTTOmO3sN7MbeWlrBX0QhnN5zjm1+kKsFTGJwdnNAQ4kFz1DozCUXODPnJ/CawU6\nB6ldCTn/AgMBAAECggEACK0v0mTDapKQOvAytI0Rx+F040BjjueoBgLC4aifZB7u\nOOlqTW59OjGG92wmp9jdbAwbOWp5YRiSdFPA0+BQocb5aecCKjauqLUbPj/uDxFX\ndIwZCQLvU2ddp5xRmFvdhkwuiqDGqYTUUm8up/aMgdz6sezvhwSsd3/s9NZYxoNB\nuRhm1tceX5Lh18rAuXIwKrPm6mkxli4L1nYnGRj86OGiCAffX0hD77Rj5Yb9/bh5\nZPhkUBaM/pQicG2gy6vOTCHqRIBn/7QcgAZ0Aaj7ld8u0kHBaFsifBdRcjhjMIMm\nAIrEZGIcSD9gPGcIDL58BkIT2sGs+5BHHl5DZMBBIQKBgQDVFBzArsVMJ6m8kabZ\nb6IepeUzAlNLgQ781OdhUwEYvWdB9646OIt2v/zwr9C8FHfezVKIlaq6vwAniXGj\n4bNRHu7rZZKrRSzkldq76oVuVxg5KpM083Vn7N/byID4wWd+HhhHieQJ6dyltGsM\nkFNIW+4u3Q7tB9tOz2i0nTPKlwKBgQC3fn9y2Kpzh3q4Py2Xu8msqQeAtoGEAHuO\nHpHVZ+Rwb6AzIfJNEyw9CZ7UnI8Zh4akxa0FVJASKFhgo0WYpq6XmVi6i7I3qXRh\nBdJM9LTwDY5Es3eu2cC50kr1adzX/JrOhDrt8pxJuTP5I+lBq37svyxxX9qWujMd\nqvuPvcGA2QKBgE0T8G63CgHJWzouSfffzPpfMnDoR29JqT1GWsi2+O+VHDQdv3Wq\nHLEBNCNwxgYzNUVwaomj8lWJYCntKyGINJCEqxKV9J9l755kovJVHJ1Ufhu3zfZa\nlz7Xzga4GgdiFujlRA0k0UvQwBNlF1A9KRNExf1H0+1kaS2yE4M6VpDTAoGBAIPv\nTpAzPYvH8/MaahvZiE6/Uoe3sjRJbI1paY46H0TA3j0lwWStzncsvak90J6YlbVP\n9PIKNXT40WLawqXZ41tZhTTMUR44l1dTqjxvDtIzzQGU0Q9Fvo9dp0wCDCq4lE69\nQOnqMXnI0pfmvEbdmmt7oeb69t69jxdb43kdBU8xAoGBAMlzj3xg7nMsvOPvkPCu\ndZEq/dQj7GYSoIs9AafWkaAC9loopmWiazTP6eDyCxsbKAaQuukmkdyOqffhZl4J\n5ywLVXNJqzypWJ96SCXjkzHUbVKn27GEpz1Fe4jZaalqSUJNYujjguD/Bffw3b/J\nTsY6uJmnRF8HNlP2GmDYFjTa\n-----END PRIVATE KEY-----\n",
+  "client_email": "meli-galaxia@appspot.gserviceaccount.com",
+  "client_id": "111029971855642194879",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/meli-galaxia%40appspot.gserviceaccount.com"
+}

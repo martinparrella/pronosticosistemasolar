@@ -4,19 +4,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @author martin.parrella
  *
  */
 @Entity
+@Table(name="PRONOSTICO_CLIMA")
 public class PronosticoClima {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    private double dia;
+    private int diaEntero;
+    private double diaParcial;
     private String clima;
     private double perimetro;
     
@@ -33,9 +36,10 @@ public class PronosticoClima {
 	 * @param clima
 	 * @param perimetro
 	 */
-	public PronosticoClima(double dia, String clima, double perimetro) {
+	public PronosticoClima(int diaEntero, double diaParcial, String clima, double perimetro) {
 		super();
-		this.dia = dia;
+		this.diaEntero = diaEntero;
+		this.diaParcial = diaParcial;
 		this.clima = clima;
 		this.perimetro = perimetro;
 	}
@@ -52,20 +56,6 @@ public class PronosticoClima {
 	 */
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	/**
-	 * @return the dia
-	 */
-	public double getDia() {
-		return dia;
-	}
-
-	/**
-	 * @param dia the dia to set
-	 */
-	public void setDia(double dia) {
-		this.dia = dia;
 	}
 
 	/**
@@ -96,10 +86,39 @@ public class PronosticoClima {
 		this.perimetro = perimetro;
 	}
 
+	/**
+	 * @return the diaEntero
+	 */
+	public int getDiaEntero() {
+		return diaEntero;
+	}
+
+	/**
+	 * @param diaEntero the diaEntero to set
+	 */
+	public void setDiaEntero(int diaEntero) {
+		this.diaEntero = diaEntero;
+	}
+
+	/**
+	 * @return the diaParcial
+	 */
+	public double getDiaParcial() {
+		return diaParcial;
+	}
+
+	/**
+	 * @param diaParcial the diaParcial to set
+	 */
+	public void setDiaParcial(double diaParcial) {
+		this.diaParcial = diaParcial;
+	}
+
 	@Override
 	public String toString() {
-		return "PronosticoClima [id=" + id + ", dia=" + dia + ", clima=" + clima + ", perimetro=" + perimetro + "]";
+		return "PronosticoClima [id=" + id + ", diaEntero=" + diaEntero + ", diaParcial=" + diaParcial + ", clima="
+				+ clima + ", perimetro=" + perimetro + "]";
 	}
-    
+
     
 }

@@ -32,22 +32,17 @@ http://localhost:8080/api/pronostico/sistemasolar/
 #### Configuracines disponibles
 Los siguientes parámetros de configuración de la aplicación se encuentran en el archivo `src\main\resources\application.properties` y se pueden editar.
 * El ciclo dura 360 dias, luego los pronosticos se repiten  
-  **DEFAULT:** `dias.repite.ciclo.orbital=360`
-
+  *Valor actual por defecto:* `dias.repite.ciclo.orbital=360`  
 * Tiempo de muestreo para pronosticar el periodo del clima. Tener en cuenta que si se quiere tener un mayor tiempo de muestreo, el tiempo de procesamiento del JOB que realiza la carga inicial va a ser MAYOR.  
-```
 > Si se pretende una frecuencia de muestreo por dia, el valor debe ser 1 (DEFAULT)
 > Si se pretende una frecuencia de muestreo por hora, el valor debe ser 0.0416 (Equivalente a 1/24)
 > Si se pretende una frecuencia de muestreo por minuto, el valor debe ser XXX (Equivalente a 1/1440)
-> Si se pretende una frecuencia de muestreo por segundo, el valor debe ser YYY (Equivalente a 1/86400)
-```
-  **DEFAULT:** `frecuencia.muestreo=1`
-
+> Si se pretende una frecuencia de muestreo por segundo, el valor debe ser YYY (Equivalente a 1/86400)  
+  *Valor actual por defecto:* `frecuencia.muestreo=1`  
 * Años a futuro para los cuales se quiere pronosticar  
-  **DEFAULT:** `pronosticar.aniosfuturos=10`
-
+  *Valor actual por defecto:* `pronosticar.aniosfuturos=10`  
 * Frecuencia en que se ejecuta el JOB que pronostica el clima. 86400000 milisegundos es equivale a un día, o sea cada día corre el JOB  
-  **DEFAULT:** `frecuencia.ejecucion.job.pronosticarClima=86400000`
+  *Valor actual por defecto:* `frecuencia.ejecucion.job.pronosticarClima=86400000`
 
 
 ## Uso de la API

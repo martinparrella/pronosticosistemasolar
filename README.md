@@ -31,20 +31,20 @@ http://localhost:8080/api/pronostico/sistemasolar/
 
 #### Configuracines disponibles
 Los siguientes parámetros de configuración de la aplicación se encuentran en el archivo `src\main\resources\application.properties` y se pueden editar.
-* El ciclo dura 360 dias, luego los pronosticos se repiten 
+* El ciclo dura 360 dias, luego los pronosticos se repiten  
   DEFAULT: `dias.repite.ciclo.orbital=360`
 
-* Tiempo de muestreo para pronosticar el periodo del clima. Tener en cuenta que si se quiere tener un mayor tiempo de muestreo, el tiempo de procesamiento del JOB que realiza la carga inicial va a ser MAYOR. 
+* Tiempo de muestreo para pronosticar el periodo del clima. Tener en cuenta que si se quiere tener un mayor tiempo de muestreo, el tiempo de procesamiento del JOB que realiza la carga inicial va a ser MAYOR.  
 `Si se pretende una frecuencia de muestreo por dia, el valor debe ser 1 (DEFAULT)`
 `Si se pretende una frecuencia de muestreo por hora, el valor debe ser 0.0416 (Equivalente a 1/24)`
 `Si se pretende una frecuencia de muestreo por minuto, el valor debe ser XXX (Equivalente a 1/1440)` 
-`Si se pretende una frecuencia de muestreo por segundo, el valor debe ser YYY (Equivalente a 1/86400)`
+`Si se pretende una frecuencia de muestreo por segundo, el valor debe ser YYY (Equivalente a 1/86400)`  
   DEFAULT: `frecuencia.muestreo=1`
 
-* Años a futuro para los cuales se quiere pronosticar
+* Años a futuro para los cuales se quiere pronosticar  
   DEFAULT: `pronosticar.aniosfuturos=10`
 
-* Frecuencia en que se ejecuta el Job. 86400000 milisegundos es equivale a un día.
+* Frecuencia en que se ejecuta el JOB que pronostica el clima. 86400000 milisegundos es equivale a un día, o sea cada día corre el JOB  
   DEFAULT: `frecuencia.ejecucion.job.pronosticarClima=86400000`
 
 
@@ -52,21 +52,21 @@ Los siguientes parámetros de configuración de la aplicación se encuentran en 
 Según desde donde se acceda a la API, ofrecemos los siguientes recursos.
 #### Despliegue local
 La API se puede desplegar localmente y acceder a los siguientes recursos:
-* Inicio: 
+* Inicio:  
   http://localhost:8080/api/pronostico/sistemasolar/
-* Consultar el clima de un día: 
+* Consultar el clima de un día:  
   http://localhost:8080/api/pronostico/sistemasolar/clima?dia=1
 
 #### Despliegue en Google Cloud con App Engine Standard
 La API se encuentra hosteada en GCP `App Engine Standar` y como almacenamiento usa base de datos `MySQL 2.ª gen. 5.7` en `Google Cloud MySQL`.
 Para acceder a la API se ofrecen los siguientes recursos:
-* Inicio: 
+* Inicio:  
   https://meli-galaxia.appspot.com/api/pronostico/sistemasolar/
 
-* Consultar durante los proximos 10 años, el clima de un día: 
+* Consultar durante los proximos 10 años, el clima de un día: <br/>
   https://meli-galaxia.appspot.com/api/pronostico/sistemasolar/clima?dia=3653
 
-* Consultar durante los proximos 10 años, la cantidad de días que van haber con un determinado clima:
+* Consultar durante los proximos 10 años, la cantidad de días que van haber con un determinado clima: <br/>
   https://meli-galaxia.appspot.com/api/pronostico/sistemasolar/periodo?clima=sequia
 
 

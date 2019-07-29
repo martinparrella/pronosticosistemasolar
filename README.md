@@ -1,64 +1,72 @@
 # Aplicacion de pronostico del clima en una galaxia lejana
 Proyecto encargado de predecir el pronostico del clima en el sistema solar de una galaxia lejana.
 
-# Supuestos
-
-## Datos de la aplicación
-### Prerequisitos
+## Prerequisitos
 Instalar los siguientes items si desean revisar o ejecutar la aplicación de forma local
-* Java 8 or newer.
-* Maven 3.3.9 
-* SpringBoot <version>2.1.6.RELEASE</version>
-* Puedes importar el proyecto dentro de tu IDE. Yo he utilizado: [Spring Tools Suite](https://spring.io/tools) (STS)
-* git command line tool (https://help.github.com/articles/set-up-git)
+* [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* [Maven](https://maven.apache.org/download.cgi) (al menos 3.5)
+* [git command line tool](https://help.github.com/articles/set-up-git)
 
-### Instrucciones
+## Prerequisitos (Opcionales)
+* [Google Cloud SDK](https://cloud.google.com/sdk/) (gcloud command line tool)
+* [SpringBoot](https://spring.io/) (Version 2.1.6.RELEASE)
+* [Spring Tools Suite](https://spring.io/tools) (IDE Eclipse utilizado para desarrollo)
+
+
+## Instrucciones instalación
 Para analizar el código o ejecutar la aplicación localmente se deben seguir los siguientes pasos:
-1- Descargar el código fuente de mi Github
-2- Desde [Spring Tools Suite](https://spring.io/tools) (STS) importar como proyecto Maven.
-3- Ejecutar mvn spring-boot:run
-4- Con algún cliente REST (Postman, SoapUI o alguna extensión de tipo rest client de Google Chrome) hacer un GET a la URL 
+
+#### Ejecución desde linea de comandos CMD
+* Descargar el código fuente de mi Github
+* Desde la linea de comandos y en el directorio donde se haya descargado el proyecto, ejecutar: ´mvnw -DskipTests spring-boot:run´
+* Desde el browser o con algún cliente REST (Postman, SoapUI o alguna extensión de tipo rest client de Google Chrome) hacer un GET a la URL 
 http://localhost:8080/api/pronostico/sistemasolar/
 
+#### Ejecución desde el IDE Eclipse
+* Descargar el código fuente de mi Github
+* Desde Spring Tools Suite importar como proyecto Maven.
+* Sobre el proyecto ejecutar ´Run As --> Maven Install´ y luego ejecutar ´Run As --> Spring Boot App´ 
+* Desde el browser o con algún cliente REST (Postman, SoapUI o alguna extensión de tipo rest client de Google Chrome) hacer un GET a la URL 
+http://localhost:8080/api/pronostico/sistemasolar/
 
-### Configuración
-Se ofrecen los siguientes parámetros de configuración de la aplicación. Estos datos se encuentran en el archivo application.properties y se pueden editar.
-#### El ciclo dura 360 dias, luego los pronosticos se repiten 
-* DEFAULT: dias.repite.ciclo.orbital=360
+#### Configuracines disponibles
+Los siguientes parámetros de configuración de la aplicación se encuentran en el archivo ´src\main\resources\application.properties´ y se pueden editar.
+* El ciclo dura 360 dias, luego los pronosticos se repiten 
+  DEFAULT: ´dias.repite.ciclo.orbital=360´
 
-#### Tiempo entre muestreo y muestreo para pronosticar el periodo del clima. Tener en cuenta que si se quiere tener un mayor tiempo de muestreo, el tiempo de procesamiento del JOB que realiza la carga inicial va a ser MAYOR. 
-- Si se pretende una frecuencia de muestreo por dia, el valor debe ser 1 (DEFAULT)
-- Si se pretende una frecuencia de muestreo por hora, el valor debe ser 0.0416 (Equivalente a 1/24)
-- Si se pretende una frecuencia de muestreo por minuto, el valor debe ser XXX (Equivalente a 1/1440) 
-- Si se pretende una frecuencia de muestreo por segundo, el valor debe ser YYY (Equivalente a 1/86400)
-* DEFAULT: frecuencia.muestreo=1
+* Tiempo de muestreo para pronosticar el periodo del clima. Tener en cuenta que si se quiere tener un mayor tiempo de muestreo, el tiempo de procesamiento del JOB que realiza la carga inicial va a ser MAYOR. 
+- Si se pretende una frecuencia de muestreo por dia, el valor debe ser ´1 (DEFAULT)´
+- Si se pretende una frecuencia de muestreo por hora, el valor debe ser ´0.0416 (Equivalente a 1/24)´
+- Si se pretende una frecuencia de muestreo por minuto, el valor debe ser ´XXX (Equivalente a 1/1440)´ 
+- Si se pretende una frecuencia de muestreo por segundo, el valor debe ser ´YYY (Equivalente a 1/86400)´
+  DEFAULT: ´frecuencia.muestreo=1´
 
-#### Años a futuro para los cuales se quiere pronosticar
-* DEFAULT: pronosticar.aniosfuturos=10
+* Años a futuro para los cuales se quiere pronosticar
+  DEFAULT: ´pronosticar.aniosfuturos=10´
 
-#### Frecuencia en que se ejecuta el Job. 86400000 milisegundos es equivale a un día.
-* DEFAULT: frecuencia.ejecucion.job.pronosticarClima=86400000
+* Frecuencia en que se ejecuta el Job. 86400000 milisegundos es equivale a un día.
+  DEFAULT: ´frecuencia.ejecucion.job.pronosticarClima=86400000´
 
-### Uso de la API
+
+## Uso de la API
 Según desde donde se acceda a la API, ofrecemos los siguientes recursos.
 #### Despliegue local
 La API se puede desplegar localmente y acceder a los siguientes recursos:
-* [Inicio] (http://localhost:8080/api/pronostico/sistemasolar/)
-* [Consultar el clima de un día] (http://localhost:8080/api/pronostico/sistemasolar/clima?dia=1)
+* Inicio: http://localhost:8080/api/pronostico/sistemasolar/
+* Consultar el clima de un día: http://localhost:8080/api/pronostico/sistemasolar/clima?dia=1
 
 #### Despliegue en Google Cloud con App Engine Standard
 La API se encuentra desplegada en GCP "App Engine Standar" y usa como base de datos "Google Cloud GCP MySQL".
 Para acceder a la API se ofrecen los siguientes recursos:
-* [Inicio]
-  https://meli-galaxia.appspot.com/api/pronostico/sistemasolar/
-* [Consultar el clima de un día]: 
-  https://meli-galaxia.appspot.com/api/pronostico/sistemasolar/clima?dia=3653
-* [Consultar la cantidad de días que va haber de un clima durante los proximos 10 años]: 
-  https://meli-galaxia.appspot.com/api/pronostico/sistemasolar/periodo?clima=sequia
+* Inicio: https://meli-galaxia.appspot.com/api/pronostico/sistemasolar/
+
+* Consultar durante los proximos 10 años, el clima de un día: https://meli-galaxia.appspot.com/api/pronostico/sistemasolar/clima?dia=3653
+
+* Consultar durante los proximos 10 años, la cantidad de días que van haber con un determinado clima: https://meli-galaxia.appspot.com/api/pronostico/sistemasolar/periodo?clima=sequia
 
 
 ## Documentación de referencia
-### Desarrollo
+#### Desarrollo
 * [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
 * [Reference doc](https://docs.spring.io/spring-cloud-gcp/docs/1.1.0.M3/reference/htmlsingle/#_spring_resources)
 * [Reference doc](https://docs.spring.io/spring-cloud-gcp/docs/1.1.0.M3/reference/htmlsingle/)
@@ -69,10 +77,11 @@ Para acceder a la API se ofrecen los siguientes recursos:
 * [Sample](https://github.com/spring-cloud/spring-cloud-gcp/tree/master/spring-cloud-gcp-samples/spring-cloud-gcp-storage-resource-sample)
 * [Samples](https://github.com/spring-cloud/spring-cloud-gcp/tree/master/spring-cloud-gcp-samples)
 
-### Fisicas y matemáticas
-* [Leyes de Kepler]: https://www.fisicalab.com/apartado/leyes-kepler#contenidos
-* [Movimiento Circular Uniforme]: https://www.fisicalab.com/apartado/caracteristicas-mcu#contenidos
-* [Distancia entre dos puntos]: http://geoutc.blogspot.com/2012/12/22-distancia-entre-dos-puntos.html 
-* [Puntos colineales (Demostracion que 3 puntos están en la misma recta)]: https://www.youtube.com/watch?v=Bz6PrepV0Mo
-* []: 
-* []: 
+#### Fisicas y matemáticas
+* [Leyes de Kepler](https://www.fisicalab.com/apartado/leyes-kepler#contenidos)
+* [Movimiento Circular Uniforme](https://www.fisicalab.com/apartado/caracteristicas-mcu#contenidos)
+* [Distancia entre dos puntos](http://geoutc.blogspot.com/2012/12/22-distancia-entre-dos-puntos.html)
+* [Puntos colineales](https://www.youtube.com/watch?v=Bz6PrepV0Mo)
+* [Verificar si un punto pertenece a una recta](https://www.unprofesor.com/matematicas/comprobar-si-un-punto-pertenece-a-una-recta-181.html) 
+* [verificar si un punto 0.0 esta dentro de un triangulo](https://www.dokry.com/1885)
+

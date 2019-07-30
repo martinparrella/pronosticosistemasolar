@@ -54,12 +54,12 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-gcp-starter-storage</artifactId>
 		</dependency>
-		<!-- Cloud SQL (MySQL) Starter --> 
+		<!-- Cloud SQL (MySQL) Starter
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-gcp-starter-sql-mysql</artifactId>
 		</dependency>
-		
+		 --> 
 		<!-- Comentar para deployar en GCP -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -68,7 +68,7 @@ public class IPronosticoClimaServiceImpl implements IPronosticoClimaService {
 	    List<PronosticoClima> pronosticos = new ArrayList<PronosticoClima>();
 	    
 		double diaParcial = 0;
-		while(diaParcial <= CICLO) {
+		while(diaParcial < CICLO) {
 			LOGGER.info("Pronosticando dia: " + diaParcial);
 			pronosticos.add(getClima(diaParcial));
 			diaParcial = diaParcial + FRECUENCIA_MUESTREO;

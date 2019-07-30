@@ -15,17 +15,19 @@ Instalar los siguientes items si desean revisar o ejecutar la aplicación de for
 
 ## Instrucciones instalación
 Para analizar el código o ejecutar la aplicación localmente se deben seguir los siguientes pasos:
-
+Antes de comenzar, descargar el código fuente
+```
+git clone https://github.com/martinparrella/pronosticosistemasolar.git
+```
 #### Ejecución desde linea de comandos CMD
-* Descargar el código fuente de mi Github
-* Desde la linea de comandos y en el directorio donde se haya descargado el proyecto, ejecutar:  `mvnw -DskipTests spring-boot:run`
+* Desde la linea de comandos, ubicarse en el directorio donde se haya descargado el proyecto y ejecutar:<br/>
+`mvnw -DskipTests spring-boot:run`
 * Desde el browser o con algún cliente REST (Postman, SoapUI o alguna extensión de tipo rest client de Google Chrome) hacer un GET a la URL 
 http://localhost:8080/api/pronostico/sistemasolar/
 
 #### Ejecución desde el IDE Eclipse
-* Descargar el código fuente de mi Github
-* Desde Spring Tools Suite importar como proyecto Maven.
-* Sobre el proyecto ejecutar `Run As --> Maven Install` y luego ejecutar `Run As --> Spring Boot App` 
+* Desde Spring Tools Suite importar como proyecto Maven.  `File -> Import -> Maven -> Existing Maven project`
+* Sobre el proyecto ejecutar `Run As -> Maven Install` y luego ejecutar `Run As -> Spring Boot App` 
 * Desde el browser o con algún cliente REST (Postman, SoapUI o alguna extensión de tipo rest client de Google Chrome) hacer un GET a la URL 
 http://localhost:8080/api/pronostico/sistemasolar/
 
@@ -55,15 +57,15 @@ La API se puede desplegar localmente y acceder a los siguientes recursos:
   http://localhost:8080/api/pronostico/sistemasolar/clima?dia=1
 
 #### Despliegue en Google Cloud con App Engine Standard
-La API se encuentra hosteada en GCP `App Engine Standar` y como almacenamiento usa base de datos `MySQL 2.ª gen. 5.7` en `Google Cloud MySQL`.
+La API se encuentra hosteada en GCP [App Engine Standard](https://cloud.google.com/appengine/docs/standard/java/) y como almacenamiento usa base de datos `MySQL 2.ª gen. 5.7` en [Google Cloud MySQL](https://cloud.google.com/sql/docs/mysql/quickstart).
 Para acceder a la API se ofrecen los siguientes recursos:
 * Inicio:  
   https://meli-galaxia.appspot.com/api/pronostico/sistemasolar/
 
-* Consultar durante los proximos 10 años, el clima de un día: <br/>
+* Consultar durante los próximos 10 años, el clima de un día: <br/>
   https://meli-galaxia.appspot.com/api/pronostico/sistemasolar/clima?dia=3653
 
-* Consultar durante los proximos 10 años, la cantidad de días que van haber con un determinado clima: <br/>
+* Consultar durante los próximos 10 años, la cantidad de días que van haber con un determinado clima: <br/>
   https://meli-galaxia.appspot.com/api/pronostico/sistemasolar/periodo?clima=sequia
 
 

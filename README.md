@@ -80,7 +80,8 @@ Para acceder a la API se ofrecen los siguientes recursos:
     
 * Consultar durante los próximos 10 años, el clima de un día: <br/>
   https://meli-galaxia.appspot.com/api/sistemasolar/pronostico/clima?dia=0  <br/>
-  Request  <br/>
+
+
 | Campo | Descripcion | 
 | ----- | --------- | 
 | dia   | El día puede ser 0 (dia inicial) y todos los valores intermedios hasta el 3653 (dia final, que es la cantidad de dias que hay desde la fecha actual hasta 10 años a futuro) |   

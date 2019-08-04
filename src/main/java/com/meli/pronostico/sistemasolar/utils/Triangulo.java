@@ -1,5 +1,8 @@
 package com.meli.pronostico.sistemasolar.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author martin.parrella
  *
@@ -31,7 +34,12 @@ public class Triangulo {
     	double d23 = GeometriaUtils.calcularDistanciaEntrePuntos(v2,v3);
     	double d13 = GeometriaUtils.calcularDistanciaEntrePuntos(v1,v3);
         
-        return d12 + d23 + d13;
+    	List<Double> lados = new ArrayList<Double>();
+    	lados.add(d12);
+    	lados.add(d23);
+    	lados.add(d13);
+    	
+    	return GeometriaUtils.calcularPerimetro(lados);
     }
 
     /**

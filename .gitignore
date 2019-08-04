@@ -3,9 +3,6 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
-pom_bkp27072019.xml
-src/main/resources/application-gcp.properties
-src/main/resources/spring-cloud-bootstrap.properties
 
 ### STS ###
 .apt_generated
@@ -32,3 +29,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Archivos con info sensible del proyecto ###
+pom_bkp27072019.xml
+src/main/resources/application-gcp.properties
+src/main/resources/application-local-hsqldb.properties
+src/main/resources/spring-cloud-bootstrap.properties
+src/main/resources/keys.json

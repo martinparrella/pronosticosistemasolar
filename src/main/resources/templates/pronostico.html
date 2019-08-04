@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sistema de pronostico de clima | PRONOSTICO</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    
+    <h3>Pron&oacute;stico del clima para los pr&oacute;ximos 10 años:</h3>
+    
+    <ul th:each="pronostico: ${pronosticos}">
+        <!--  
+        <li>Clima: <b><span th:text="${pronostico.clima.toUpperCase()}" /></b> - Cantidad de d&iacute;as: <b><span th:text="${pronostico.cantidadDiasInt}" /></b></li>
+        -->
+        <li><b><span th:text="${pronostico.cantidadDiasInt}" /></b> d&iacute;as, tendr&aacute;n un per&iacute;odo con clima <b><span th:text="${pronostico.clima.toUpperCase()}" /></b></li>
+    </ul>
+   
+   <h3>Día con pico m&aacute;ximo de lluvia: </h3>
+   Día <b><span th:text="${picoLluvia.dia}" /></b>  (<span th:text="${picoLluvia.mensaje}" />) 
+    
+    <p><a href="/">Volver</a></p>
+</body>
+</html>

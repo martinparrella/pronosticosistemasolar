@@ -81,17 +81,22 @@ Para acceder a la API se ofrecen los siguientes recursos:
 * Consultar durante los próximos 10 años, el clima de un día: <br/>
   https://meli-galaxia.appspot.com/api/sistemasolar/pronostico/clima?dia=0
   Request:  
-| Campo   | Descripcion | 
-| ------- | ----------- | 
-| dia     | El día puede ser 0 (dia inicial) y todos los valores intermedios hasta el 3653 (dia final, que es la cantidad de dias que hay desde la fecha actual hasta 10 años a futuro) |  
-  Response:  
-| Dia   | Resultado | 
-| ----- | --------- | 
-| 0     | `{ "dia":0,"clima":"sequia" }`  |   
-| 72    | `{ "dia":72,"clima":"lluvia" }` |
-| 566   | `{ "dia":566,"clima":"lluvia" }` |  
-| 3653  | `{ "dia":3653,"clima":"normal" }` |    
-| 3563  | `{ "dia":3563,"clima":"normal" }` |    
+| Campo  | Descripcion | 
+| -------| -----------| 
+| dia | El día puede ser 0 (dia inicial) y todos los valores intermedios hasta el 3653 (dia final, que es la cantidad de dias que hay desde la fecha actual hasta 10 años a futuro) |  
+Response
+```
+Ej: dia=0 => { "dia":0,"clima":"sequia" }  
+Ej: dia=566 => { "dia":0,"clima":"lluvia" }  
+Ej: dia=3653 => { "dia":0,"clima":"normal" }  
+Ej: dia=3680 => {
+    "fecha": "04-08-2019 04:02:04",
+    "status": 404,
+    "statusMessage": "NOT_FOUND",
+    "error": "com.meli.pronostico.sistemasolar.exceptions.DiaNotFoundException",
+    "message": "El parametro dia no es valido. Los valores permitidos para el parametro dia son numeros enteros entre 0 y 3653",
+    "path": "/api/sistemasolar/pronostico/clima"
+}  
 
 | Dia   | Resultado | 
 | ----- | --------- | 

@@ -17,41 +17,44 @@ public class PicoLluviaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int dia;
-	private double perimetro;
+	private String mensaje;
 	
 	/**
 	 * @param dia
-	 * @param perimetro
+	 * @param mensaje
 	 */
-	public PicoLluviaDTO(int dia, double perimetro) {
+	public PicoLluviaDTO(int dia, String mensaje) {
 		super();
 		this.dia = dia;
-		this.perimetro = perimetro;
+		this.mensaje = mensaje;
 	}
+
 	/**
 	 * @return the dia
 	 */
 	public int getDia() {
 		return dia;
 	}
+
 	/**
 	 * @param dia the dia to set
 	 */
 	public void setDia(int dia) {
 		this.dia = dia;
 	}
+
 	/**
-	 * @return the perimetro
+	 * @return the mensaje
 	 */
-	public double getPerimetro() {
-		return perimetro;
+	public String getMensaje() {
+		return mensaje;
 	}
+
 	/**
-	 * @param perimetro the perimetro to set
+	 * @param mensaje the mensaje to set
 	 */
-	public void setPerimetro(double perimetro) {
-		this.perimetro = perimetro;
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
 	}
-	
 	
 }

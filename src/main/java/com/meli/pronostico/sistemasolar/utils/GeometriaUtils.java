@@ -1,5 +1,7 @@
 package com.meli.pronostico.sistemasolar.utils;
 
+import java.util.List;
+
 /**
  * @author martin.parrella
  *
@@ -42,8 +44,21 @@ public class GeometriaUtils {
      * Metodo que valida si los puntos forman un triangulo
      * @return True si es triangulo, caso contrario False.
      */
-	public boolean isTriangulo(Punto p1, Punto p2, Punto p3) {
+	public static boolean isTriangulo(Punto p1, Punto p2, Punto p3) {
 		return !isPuntosColineales(p1, p2, p3);
 	}
 	
+    /**
+     * Metodo que calcula el perímetro de un poligono
+     * @return El perimetro de un poligono
+     */
+    public static double calcularPerimetro(List lados) {
+
+    	double perimetro = 0d;
+    	for(int i=0; i < lados.size(); i++) {
+    		perimetro += (double) lados.get(i);
+    	}
+
+        return perimetro;
+    }
 }

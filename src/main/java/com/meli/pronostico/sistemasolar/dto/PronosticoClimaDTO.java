@@ -1,6 +1,9 @@
 package com.meli.pronostico.sistemasolar.dto;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author martin.parrella
@@ -10,84 +13,50 @@ public class PronosticoClimaDTO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-    private int diaEntero;
-    private double diaParcial;
-    private String clima;
-    private double perimetro;
+	@JsonProperty("pronostico_cant_dias_x_clima")
+    private List<PeriodoClimaDTO> listPronosticoClima;
     
-    
+    @JsonProperty("pico_maximo_de_lluvia")
+    private PicoLluviaDTO picoLluvia;
 	/**
-	 * @param diaEntero
-	 * @param clima
+	 * 
 	 */
-	public PronosticoClimaDTO(int diaEntero, String clima) {
+	public PronosticoClimaDTO() {
 		super();
-		this.diaEntero = diaEntero;
-		this.clima = clima;
+		// TODO Auto-generated constructor stub
 	}
-
-
 	/**
-	 * @return the diaEntero
+	 * @param listPronosticoClima
+	 * @param picoLluvia
 	 */
-	public int getDiaEntero() {
-		return diaEntero;
+	public PronosticoClimaDTO(List<PeriodoClimaDTO> listPronosticoClima, PicoLluviaDTO picoLluvia) {
+		super();
+		this.listPronosticoClima = listPronosticoClima;
+		this.picoLluvia = picoLluvia;
 	}
-
-
 	/**
-	 * @param diaEntero the diaEntero to set
+	 * @return the listPronosticoClima
 	 */
-	public void setDiaEntero(int diaEntero) {
-		this.diaEntero = diaEntero;
+	public List<PeriodoClimaDTO> getListPronosticoClima() {
+		return listPronosticoClima;
 	}
-
-
 	/**
-	 * @return the diaParcial
+	 * @param listPronosticoClima the listPronosticoClima to set
 	 */
-	public double getDiaParcial() {
-		return diaParcial;
+	public void setListPronosticoClima(List<PeriodoClimaDTO> listPronosticoClima) {
+		this.listPronosticoClima = listPronosticoClima;
 	}
-
-
 	/**
-	 * @param diaParcial the diaParcial to set
+	 * @return the picoLluvia
 	 */
-	public void setDiaParcial(double diaParcial) {
-		this.diaParcial = diaParcial;
+	public PicoLluviaDTO getPicoLluvia() {
+		return picoLluvia;
 	}
-
-
 	/**
-	 * @return the clima
+	 * @param picoLluvia the picoLluvia to set
 	 */
-	public String getClima() {
-		return clima;
+	public void setPicoLluvia(PicoLluviaDTO picoLluvia) {
+		this.picoLluvia = picoLluvia;
 	}
-
-
-	/**
-	 * @param clima the clima to set
-	 */
-	public void setClima(String clima) {
-		this.clima = clima;
-	}
-
-
-	/**
-	 * @return the perimetro
-	 */
-	public double getPerimetro() {
-		return perimetro;
-	}
-
-
-	/**
-	 * @param perimetro the perimetro to set
-	 */
-	public void setPerimetro(double perimetro) {
-		this.perimetro = perimetro;
-	}
-	   
+       
 }

@@ -53,8 +53,8 @@ public class PlanetaBO {
      * @return El Punto p(x,y) donde se ubica el planeta.
      */
     public Punto getPosicion(double tiempo){
-        double x = Math.round(distanciaAlSol * Math.sin(getAngulo(tiempo)));
-        double y = Math.round(distanciaAlSol * Math.cos(getAngulo(tiempo)));
+        double x = Math.round(distanciaAlSol * Math.sin(this.getAngulo(tiempo)));
+        double y = Math.round(distanciaAlSol * Math.cos(this.getAngulo(tiempo)));
         return new Punto(x,y);
     }
     

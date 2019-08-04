@@ -1,5 +1,7 @@
 package com.meli.pronostico.sistemasolar.utils;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Duration;
 import java.time.LocalDate;
 
@@ -16,7 +18,11 @@ public class GlobalConfiguration {
 	@Value("${pronosticar.aniosfuturos}")
 	private String cantidadAniosFuturos;
 
-
+	public static final String FRECUENCIA_MUESTREO_X_DIA = "XDIA";
+	public static final String FRECUENCIA_MUESTREO_X_HORA = "XHORA";
+	public static final String FRECUENCIA_MUESTREO_X_MINUTO = "XMINUTO";
+	public static final String FRECUENCIA_MUESTREO_X_SEGUNDO = "XSEGUNDO";
+	
 	/**
 	 * @return the frecuenciaMuestreo
 	 */
@@ -69,5 +75,49 @@ public class GlobalConfiguration {
 	        cantidadDiasFuturos = (int) Duration.between(hoy.atTime(0, 0), futuro.atTime(0, 0)).toDays();
 		}
 		return cantidadDiasFuturos;
+	}
+	
+	public double getFrecuenciaMuestreoTiempo() {
+		BigDecimal bd = new BigDecimal(1); 
+		
+		switch (getFrecuenciaMuestreo()) {
+			case FRECUENCIA_MUESTREO_X_DIA:
+				break;
+			case FRECUENCIA_MUESTREO_X_HORA:
+				bd = bd.divide(new BigDecimal(24), 10, RoundingMode.HALF_UP);
+				break;
+			case FRECUENCIA_MUESTREO_X_MINUTO:
+				bd = bd.divide(new BigDecimal(1440), 10, RoundingMode.HALF_UP);
+				break;
+			case FRECUENCIA_MUESTREO_X_SEGUNDO:
+				bd = bd.divide(new BigDecimal(86400), 10, RoundingMode.HALF_UP);
+				break;
+			default:
+				break;
+		}
+		
+		return bd.doubleValue();
+	}
+	
+	public int getFrecuenciaMuestreoDivisor() {
+		BigDecimal bd = new BigDecimal(1); 
+		
+		switch (getFrecuenciaMuestreo()) {
+			case FRECUENCIA_MUESTREO_X_DIA:
+				break;
+			case FRECUENCIA_MUESTREO_X_HORA:
+				bd = new BigDecimal(24);
+				break;
+			case FRECUENCIA_MUESTREO_X_MINUTO:
+				bd = new BigDecimal(1440);
+				break;
+			case FRECUENCIA_MUESTREO_X_SEGUNDO:
+				bd = new BigDecimal(86400);
+				break;
+			default:
+				break;
+		}
+		
+		return bd.intValue();
 	}
 }

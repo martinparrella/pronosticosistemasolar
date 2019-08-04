@@ -1,5 +1,17 @@
-# Aplicacion de pronostico del clima en una galaxia lejana
-Proyecto encargado de predecir el pronostico del clima en el sistema solar de una galaxia lejana.
+# Aplicación de pronóstico del clima en una galaxia lejana
+Proyecto encargado de pronosticar el clima en el sistema solar de una galaxia lejana.<br/>
+El clima puede ser de "sequia", "lluvioso (con picos de lluvia)", "optimo" o normal.
+
+## Supuestos y consideraciones para el desarrollo de la aplicación
+* Según los datos proporcinados, se asume como momento inicial, un perìodo de "sequia", es decir que los planetas estan alineados verticalmente al sol, y el sol se encuenta en el Punto(0, 0) del eje cartesiano.
+* Según los datos proporcinados respecto a la velocidad angular (grados/dia), y considerando que los planetas giran a velocidad constante, realizando un movimiento circular uniforme, podemos calcular el período que tardarán cada uno de ellos en girar alrededor del sol:<br/>
+``` 
+Si el planeta "Ferengi" se desplaza 1grados/día, tardará 360 días en dar la vuelta alrededor del sol.
+Si el planeta "Betasoide" se desplaza 3 grados/día, tardará 120 días en dar la vuelta alrededor del sol.
+Si el planeta "Vulcano" se desplaza 5 grados/día, tardará 72 días en dar la vuelta alrededor del sol.
+``` 
+* De acuero al análisis anterior, deducimos que un ciclo durará 360 días. A partir del día 361 los pronósticos se repiten año tras año.
+* Si la alinación de planetas, no pertenece a ninguno de los períodos definidos en el enunciado, el clima es considerado com "normal".
 
 ## Prerequisitos
 Instalar los siguientes items si desean revisar o ejecutar la aplicación de forma local
@@ -36,11 +48,11 @@ Los siguientes parámetros de configuración de la aplicación se encuentran dis
 * El ciclo dura 360 dias, luego los pronosticos se repiten  
   `dias.repite.ciclo.orbital=360`  
 * Tiempo de muestreo para pronosticar el periodo del clima. Tener en cuenta que si se quiere tener un mayor tiempo de muestreo, el tiempo de procesamiento del JOB que realiza la carga inicial va a ser MAYOR.  
-*Si se pretende una frecuencia de muestreo por dia, el valor debe ser 1 (DEFAULT)*  
-*Si se pretende una frecuencia de muestreo por hora, el valor debe ser 0.0416 (Equivalente a 1/24)*  
-*Si se pretende una frecuencia de muestreo por minuto, el valor debe ser XXX (Equivalente a 1/1440)*  
-*Si se pretende una frecuencia de muestreo por segundo, el valor debe ser YYY (Equivalente a 1/86400)*  
-  `frecuencia.muestreo=1`  
+*XDIA: Si se pretende una frecuencia de muestreo por dia.*  
+*XHORA: Si se pretende una frecuencia de muestreo por hora.*  
+*XMINUTO: Si se pretende una frecuencia de muestreo por minuto.*  
+*XSEGUNDO: Si se pretende una frecuencia de muestreo por segundo.*  
+  (DEFAULT) `frecuencia.muestreo=XDIA`  
 * Años a futuro para los cuales se quiere pronosticar  
   `pronosticar.aniosfuturos=10`  
 * Frecuencia en que se ejecuta el JOB que pronostica el clima. 86400000 milisegundos es equivale a un día, o sea cada día corre el JOB  
@@ -61,10 +73,12 @@ La API se encuentra hosteada en GCP [App Engine Standard](https://cloud.google.c
 Para acceder a la API se ofrecen los siguientes recursos:
 * Inicio:  
   https://meli-galaxia.appspot.com/api/pronostico/sistemasolar/
-
+  Response body:
+  
 * Consultar durante los próximos 10 años, el clima de un día: <br/>
   https://meli-galaxia.appspot.com/api/pronostico/sistemasolar/clima?dia=3653
-
+  Response body:
+     { "dia":72,"clima":"LLUVIA" }
 * Consultar durante los próximos 10 años, la cantidad de días que van haber con un determinado clima: <br/>
   https://meli-galaxia.appspot.com/api/pronostico/sistemasolar/periodo?clima=sequia
 

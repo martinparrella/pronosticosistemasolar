@@ -63,45 +63,6 @@ public class RestPronosticoController {
 		return new ResponseEntity<CustomMessageJson>(apiResponse, apiResponse.getStatusMessage());
 	}
 
-//	/**
-//	 *
-//	 * Ej: http://localhost:8080/api/pronostico/sistemasolar/clima?dia=20
-//	 * 
-//	 * @param dia
-//	 * @return el pronostico del clima del día consultado.
-//	 */
-//	@RequestMapping("/clima")
-//	public ResponseEntity<PronosticoClimaDiaDTO> clima(@RequestParam(value = "dia") String dia) {
-//		
-//		try {
-//			int ciclo = Integer.parseInt(global.getCicloOrbital());
-//			
-//			isSistemaPronosticando(ciclo);
-//
-//			int diaInt = Integer.valueOf(dia).intValue();
-//			
-//			//Valido que el dia pasado como parametro sea un dia valido
-//			if(0 > diaInt || diaInt > global.getCantidadDiasFuturos()) {
-//				StringBuilder mensaje = new StringBuilder("El parametro dia no es valido. ");
-//				mensaje.append("Los valores permitidos para el parametro dia son numeros enteros entre ");
-//				mensaje.append("0 y ").append(global.getCantidadDiasFuturos());
-//				throw new DiaNotFoundException(mensaje.toString());
-//			}
-//			
-//			int modDiaCiclo = diaInt % ciclo;
-//			//PronosticoClimaDiaDTO p = pronosticoClimaService.findByDiaEntero((modDiaCiclo==0)?ciclo:modDiaCiclo);
-//			
-//			PronosticoClimaDiaDTO p = pronosticoClimaService.findByDiaEntero(modDiaCiclo);
-//			p.setDia(diaInt); //Seteo el día que fue consultado por parámetro
-//			return new ResponseEntity<PronosticoClimaDiaDTO>(p, HttpStatus.OK);
-//		
-//		} catch (NumberFormatException e){
-//			throw e;
-//		} catch (Exception e) {
-//			throw e;
-//		}
-//	}
-
 	/**
 	 *
 	 * Ej: http://localhost:8080/api/sistemasolar/pronostico/clima?dia=20

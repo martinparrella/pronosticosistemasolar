@@ -3,14 +3,15 @@ Proyecto encargado de pronosticar el clima en el sistema solar de una galaxia le
 El clima puede ser de "sequia", "lluvioso (con picos de lluvia)", "optimo" o normal.
 
 ## Supuestos y consideraciones para el desarrollo de la aplicación
-* Según los datos proporcinados, se asume como momento inicial, un perìodo de "sequia", es decir que los planetas estan alineados verticalmente al sol, y el sol se encuenta en el Punto(0, 0) del eje cartesiano.
+* Según los datos proporcinados, se asume como clima inicial, un período de "sequia", es decir que los planetas estan alineados verticalmente al sol, y el sol se encuenta en el Punto(0, 0) del eje cartesiano.
 * Según los datos proporcinados respecto a la velocidad angular (grados/dia), y considerando que los planetas giran a velocidad constante, realizando un movimiento circular uniforme, podemos calcular el período que tardarán cada uno de ellos en girar alrededor del sol:<br/>
 ``` 
 Si el planeta "Ferengi" se desplaza 1grados/día, tardará 360 días en dar la vuelta alrededor del sol.
 Si el planeta "Betasoide" se desplaza 3 grados/día, tardará 120 días en dar la vuelta alrededor del sol.
 Si el planeta "Vulcano" se desplaza 5 grados/día, tardará 72 días en dar la vuelta alrededor del sol.
 ``` 
-* De acuero al análisis anterior, deducimos que un ciclo durará 360 días. A partir del día 361 los pronósticos se repiten año tras año.
+* De acuero al análisis anterior, deducimos que un ciclo durará 360 días. A partir del día 361 los pronósticos se repiten año tras año. 
+* Los días se cuentan desde el día 0 (día inicial) hasta el mismo día dentro de 10 años (día final)
 * Si la alinación de planetas, no pertenece a ninguno de los períodos definidos en el enunciado, el clima es considerado com "normal".
 
 ## Prerequisitos
@@ -61,27 +62,75 @@ Los siguientes parámetros de configuración de la aplicación se encuentran dis
 
 ## Uso de la API
 Según desde donde se acceda a la API, ofrecemos los siguientes recursos.
+En todos los casos se debe setear en los Headers `Key: Accept - Value: application/json`
 #### Despliegue local
 La API se puede desplegar localmente y acceder a los siguientes recursos:
 * Inicio:  
-  http://localhost:8080/api/pronostico/sistemasolar/
+  http://localhost:8080/api/sistemasolar/pronostico/
 * Consultar el clima de un día:  
-  http://localhost:8080/api/pronostico/sistemasolar/clima?dia=1
+  http://localhost:8080/api/sistemasolar/pronostico/clima?dia=0
+* Consultar la cantidad de dias de cierto clima (sequia, lluvia, optimo, normal) y el dia con pico maximos de lluvia para los próximos 10 años:  
+  http://localhost:8080/api/sistemasolar/pronostico/en-una-decada/cantidad-diasxclima-con-pico-lluvia
 
 #### Despliegue en Google Cloud con App Engine Standard
 La API se encuentra hosteada en GCP [App Engine Standard](https://cloud.google.com/appengine/docs/standard/java/) y como almacenamiento usa base de datos `MySQL 2.ª gen. 5.7` en [Google Cloud MySQL](https://cloud.google.com/sql/docs/mysql/quickstart).
 Para acceder a la API se ofrecen los siguientes recursos:
 * Inicio:  
-  https://meli-galaxia.appspot.com/api/pronostico/sistemasolar/
-  Response body:
-  
+  https://meli-galaxia.appspot.com/api/sistemasolar/pronostico/  
+    
 * Consultar durante los próximos 10 años, el clima de un día: <br/>
-  https://meli-galaxia.appspot.com/api/pronostico/sistemasolar/clima?dia=3653
-  Response body:
-     { "dia":72,"clima":"LLUVIA" }
-* Consultar durante los próximos 10 años, la cantidad de días que van haber con un determinado clima: <br/>
-  https://meli-galaxia.appspot.com/api/pronostico/sistemasolar/periodo?clima=sequia
+  https://meli-galaxia.appspot.com/api/sistemasolar/pronostico/clima?dia=0
+  Request:  
+| Campo   | Descripcion | 
+| ------- | ----------- | 
+| dia     | El día puede ser 0 (dia inicial) y todos los valores intermedios hasta el 3653 (dia final, que es la cantidad de dias que hay desde la fecha actual hasta 10 años a futuro) |  
+  Response:  
+| Dia   | Resultado | 
+| ----- | --------- | 
+| 0     | `{ "dia":0,"clima":"sequia" }`  |   
+| 72    | `{ "dia":72,"clima":"lluvia" }` |
+| 566   | `{ "dia":566,"clima":"lluvia" }` |  
+| 3653  | `{ "dia":3653,"clima":"normal" }` |    
+| 3563  | `{ "dia":3563,"clima":"normal" }` |    
 
+| Dia   | Resultado | 
+| ----- | --------- | 
+| 0     |  |   
+
+* Consultar la cantidad de dias de cierto clima (sequia, lluvia, optimo, normal) y el dia con pico maximos de lluvia para los próximos 10 años:  
+  https://meli-galaxia.appspot.com/api/sistemasolar/pronostico/en-una-decada/cantidad-diasxclima-con-pico-lluvia  
+
+Response
+```
+{
+    "pronostico_cant_dias_x_clima": [
+        {
+            "clima": "sequia",
+            "cantidad_dias": 41
+        },
+        {
+            "clima": "normal",
+            "cantidad_dias": 2425
+        },
+        {
+            "clima": "lluvia",
+            "cantidad_dias": 1187
+        },
+        {
+            "clima": "optimo",
+            "cantidad_dias": 0
+        }
+    ],
+    "pico_maximo_de_lluvia": {
+        "dia": 252,
+        "mensaje": "El perimietro del triangulo del día es: 6263.197468741897"
+    }
+}
+```
+
+## Uso de la WEB
+Además de la API, se puede acceder al sitio web, para obtener el pronostico del clima:  
+https://meli-galaxia.appspot.com/
 
 ## Documentación de referencia
 #### Desarrollo

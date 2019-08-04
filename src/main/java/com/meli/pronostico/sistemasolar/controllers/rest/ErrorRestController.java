@@ -39,12 +39,13 @@ public class ErrorRestController {
     }
     
 	@ExceptionHandler(SistemaPronosticandoException.class)
+	@ResponseBody
 	public final CustomMessageJson handleSistemaPronosticandoException(SistemaPronosticandoException ex,
 			HttpServletRequest request) {
 
 		return new CustomMessageJson(
-                HttpStatus.LOCKED.value(),
-                HttpStatus.LOCKED,
+                HttpStatus.PROCESSING.value(),
+                HttpStatus.PROCESSING,
                 ex.getClass().getName(),
                 ex.getMessage(),
                 request.getRequestURI(),
@@ -53,6 +54,7 @@ public class ErrorRestController {
 	}
 	
 	@ExceptionHandler(DiaNotFoundException.class)
+	@ResponseBody
 	public final CustomMessageJson handleDiaNotFoundException(DiaNotFoundException ex,
 			HttpServletRequest request) {
 
@@ -67,6 +69,7 @@ public class ErrorRestController {
 	}
 
 	@ExceptionHandler(NumberFormatException.class)
+	@ResponseBody
 	public final CustomMessageJson handleNumberFormatException(NumberFormatException ex,
 			HttpServletRequest request) {
 
@@ -81,6 +84,7 @@ public class ErrorRestController {
 	}
 	
 	@ExceptionHandler(ClimaNotFoundException.class)
+	@ResponseBody
 	public final CustomMessageJson handleClimaNotFoundException(ClimaNotFoundException ex,
 			HttpServletRequest request) {
 

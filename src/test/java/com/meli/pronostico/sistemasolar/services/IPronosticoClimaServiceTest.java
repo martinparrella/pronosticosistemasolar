@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.meli.pronostico.sistemasolar.bo.PeriodoClimaBO;
@@ -43,6 +44,7 @@ public class IPronosticoClimaServiceTest {
         this.pronosticoClimaRepository.save(new PronosticoClima(4, 4.0, PeriodoClimaBO.LLUVIA.getDescripcion(), 13));
         this.pronosticoClimaRepository.save(new PronosticoClima(5, 5.0, PeriodoClimaBO.OPTIMO.getDescripcion(), 0));
         this.pronosticoClimaRepository.save(new PronosticoClima(6, 6.0, PeriodoClimaBO.NORMAL.getDescripcion(), 0));
+        this.pronosticoClimaRepository.save(new PronosticoClima(7, 2.0, PeriodoClimaBO.LLUVIA.getDescripcion(), 25.66));
     }
 	
     @Test
@@ -86,7 +88,7 @@ public class IPronosticoClimaServiceTest {
         assertEquals(1, periodo.getCantidadDias().intValue());
         
         periodo = pronosticoClimaService.countDiasByClima(PeriodoClimaBO.LLUVIA.getDescripcion());
-        assertEquals(2, periodo.getCantidadDias().intValue());
+        assertEquals(3, periodo.getCantidadDias().intValue());
         
         periodo = pronosticoClimaService.countDiasByClima(PeriodoClimaBO.OPTIMO.getDescripcion());
         assertEquals(2, periodo.getCantidadDias().intValue());
@@ -97,37 +99,37 @@ public class IPronosticoClimaServiceTest {
     
     @Test
     public void testGetPicoLluviaEnFuturos10Anios() throws Exception {
-    	PicoLluviaDTO picoLluvia = pronosticoClimaService.getPicoLluviaEnFuturos10Anios();
-        assertEquals(2, picoLluvia.getDia());
+    	List<PicoLluviaDTO> picoLluvia = pronosticoClimaService.getPicoLluviaEnFuturos10Anios();
+    	
+        assertEquals(2, picoLluvia.get(0).getDia());
         
-        assertNotEquals(4, picoLluvia.getDia());        
+        assertNotEquals(4, picoLluvia.get(0).getDia());        
     }
     
-//    @Test
-//    public void testGetCantidadDiasDeUnClimaEnFuturos10Anios() throws Exception {
-//    	List<PeriodoClimaDTO> listPeriodoClimaDTO  = pronosticoClimaService.getCantidadDiasDeUnClimaEnFuturos10Anios();
-//    	listPeriodoClimaDTO.forEach(periodo -> {
-//    		switch (periodo.getClima()) {
-//				case "sequia":
-//					assertNotEquals(10, periodo.getCantidadDias());  
-//					break;
-//				case "lluvia":
-//					assertNotEquals(20, periodo.getCantidadDias());  
-//					break;
-//				case "optimo":
-//					assertNotEquals(20, periodo.getCantidadDias());  
-//					break;
-//				case "normal":
-//					assertNotEquals(10, periodo.getCantidadDias());  
-//					break;
-//				
-//				default:
-//					break;
-//			}
-//    		
-//    	});
-//        
-//        
-//              
-//    }
+    @Test
+    public void testGetCantidadDiasDeUnClimaEnFuturos10Anios() throws Exception {
+    	List<PeriodoClimaDTO> listPeriodoClimaDTO  = pronosticoClimaService.getCantidadDiasDeUnClimaEnFuturos10Anios();
+    	listPeriodoClimaDTO.forEach(periodo -> {
+    		switch (periodo.getClima()) {
+				case "sequia":
+					assertEquals(11, periodo.getCantidadDiasInt());  
+					break;
+				case "lluvia":
+					assertNotEquals(22, periodo.getCantidadDiasInt());  
+					break;
+				case "optimo":
+					assertNotEquals(20, periodo.getCantidadDiasInt());  
+					break;
+				case "normal":
+					assertNotEquals(10, periodo.getCantidadDiasInt());  
+					break;
+				
+				default:
+					break;
+			}
+    		
+    	});  
+    }
+    
+
 }

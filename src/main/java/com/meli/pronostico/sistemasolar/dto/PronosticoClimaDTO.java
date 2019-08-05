@@ -16,8 +16,8 @@ public class PronosticoClimaDTO implements Serializable{
 	@JsonProperty("pronostico_cant_dias_x_clima")
     private List<PeriodoClimaDTO> listPronosticoClima;
     
-    @JsonProperty("pico_maximo_de_lluvia")
-    private PicoLluviaDTO picoLluvia;
+    @JsonProperty("picos_maximo_de_lluvia")
+    private List<PicoLluviaDTO> picoLluvia;
 	/**
 	 * 
 	 */
@@ -29,7 +29,7 @@ public class PronosticoClimaDTO implements Serializable{
 	 * @param listPronosticoClima
 	 * @param picoLluvia
 	 */
-	public PronosticoClimaDTO(List<PeriodoClimaDTO> listPronosticoClima, PicoLluviaDTO picoLluvia) {
+	public PronosticoClimaDTO(List<PeriodoClimaDTO> listPronosticoClima, List<PicoLluviaDTO> picoLluvia) {
 		super();
 		this.listPronosticoClima = listPronosticoClima;
 		this.picoLluvia = picoLluvia;
@@ -49,14 +49,15 @@ public class PronosticoClimaDTO implements Serializable{
 	/**
 	 * @return the picoLluvia
 	 */
-	public PicoLluviaDTO getPicoLluvia() {
+	public List<PicoLluviaDTO> getPicoLluvia() {
 		return picoLluvia;
 	}
 	/**
 	 * @param picoLluvia the picoLluvia to set
 	 */
-	public void setPicoLluvia(PicoLluviaDTO picoLluvia) {
+	public void setPicoLluvia(List<PicoLluviaDTO> picoLluvia) {
 		this.picoLluvia = picoLluvia;
 	}
+
        
 }

@@ -36,7 +36,6 @@ public class CustomErrorController implements ErrorController {
     @RequestMapping("/error")
     public String handleError(@RequestHeader("Accept") String accept, HttpServletRequest request, 
             WebRequest webRequest, Model model) {
-    	LOGGER.info("executing custom error controller");
  
         if (accept.contains("application/json")) {
             return "forward:/errorJSON";

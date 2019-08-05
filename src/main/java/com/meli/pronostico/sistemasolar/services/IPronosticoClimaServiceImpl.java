@@ -4,12 +4,13 @@
 package com.meli.pronostico.sistemasolar.services;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.meli.pronostico.sistemasolar.bo.PeriodoClimaBO;
@@ -47,7 +48,7 @@ public class IPronosticoClimaServiceImpl implements IPronosticoClimaService {
 	@Override
 	public void pronosticarClimaSistemaSolar(PlanetaBO ferengi, PlanetaBO betasoide, PlanetaBO vulcano) {
 		// TODO Auto-generated method stub
-		LOGGER.info("Ingrese al método pronosticarClimaSistemaSolar");
+		LOGGER.debug("Ingrese al método pronosticarClimaSistemaSolar");
 		
 		this.ferengi = ferengi;
 		this.betasoide = betasoide;
@@ -57,7 +58,8 @@ public class IPronosticoClimaServiceImpl implements IPronosticoClimaService {
 		pronosticoClimaRepository.deleteAll();
 		
 		this.iniciarPronostico();
-		LOGGER.info("Finalizó el método pronosticarClimaSistemaSolar");
+		
+		LOGGER.debug("Finalizó el método pronosticarClimaSistemaSolar");
 	}
 	
 	private void iniciarPronostico() {
@@ -86,30 +88,6 @@ public class IPronosticoClimaServiceImpl implements IPronosticoClimaService {
 		
 	}
 	
-	private void iniciarPronosticoBKP() {
-	    //El ciclo dura 360 dias, despues las predicciones se repiten
-	    int CICLO = Integer.parseInt(global.getCicloOrbital());
-	    
-	    //Tiempo entre muestreo y muestreo para pronosticar el periodo del clima
-	    double FRECUENCIA_MUESTREO = Double.parseDouble(global.getFrecuenciaMuestreo()); 
-	    
-	    List<PronosticoClima> pronosticos = new ArrayList<PronosticoClima>();
-	    
-		double dia = 0;
-		while(dia < CICLO) {
-			//LOGGER.info("Pronosticando dia: " + dia);
-			pronosticos.add( this.getClima(dia) );
-			dia = dia + FRECUENCIA_MUESTREO;
-		}
-		
-		//Imprimo los pronosticos calculados:
-		pronosticos.forEach(pronostico -> LOGGER.debug(pronostico.toString()));
-		
-		//Persisto en BD
-		pronosticos.forEach(pronostico -> pronosticoClimaRepository.save(pronostico));
-		
-	}
-	
     private PronosticoClima getClima(double diaParcial){
         Punto p1 = ferengi.getPosicion(diaParcial);
         Punto p2 = betasoide.getPosicion(diaParcial);
@@ -127,7 +105,7 @@ public class IPronosticoClimaServiceImpl implements IPronosticoClimaService {
         if(GeometriaUtils.isPuntosColineales(p1, p2, p3)){
             //los 3 planetas estan alineados
             if(GeometriaUtils.isPuntosColineales(p1, p2, GeometriaUtils.UBICACION_SOL)){
-                //Estan alineados respecto al sol
+                //los 3 planetas estan alineados respecto al sol
                 return new PronosticoClima(diaEntero, diaParcial, PeriodoClimaBO.SEQUIA.getDescripcion(), 0);
             }
             return new PronosticoClima(diaEntero, diaParcial, PeriodoClimaBO.OPTIMO.getDescripcion(), 0);
@@ -135,12 +113,15 @@ public class IPronosticoClimaServiceImpl implements IPronosticoClimaService {
 
         Triangulo triangulo = new Triangulo(p1, p2, p3);
         if(triangulo.incluyePunto(GeometriaUtils.UBICACION_SOL)){
-            //si el sol esta dentro del triangulo
+        	
         	LOGGER.debug("Dia: " + diaEntero + " Perimetro: " + triangulo.getPerimetro());
+        	
+        	//si el sol esta dentro del triangulo
             return new PronosticoClima(diaEntero, diaParcial, PeriodoClimaBO.LLUVIA.getDescripcion(), triangulo.getPerimetro());
         }
 
-        return new PronosticoClima(diaEntero, diaParcial, PeriodoClimaBO.NORMAL.getDescripcion(), 0); //Si el triangulo no incluye al sol y no es un recta
+        //Si el triangulo no incluye al sol y no es un recta
+        return new PronosticoClima(diaEntero, diaParcial, PeriodoClimaBO.NORMAL.getDescripcion(), 0); 
     }
 
 	@Override
@@ -153,23 +134,7 @@ public class IPronosticoClimaServiceImpl implements IPronosticoClimaService {
 	public List<PronosticoClimaDiaDTO> findDistinctClimaByDiaEntero(int dia) {
 		List<PronosticoClimaDiaDTO> listPronosticoDTO = new ArrayList<PronosticoClimaDiaDTO>();
 		List<PronosticoClima> listPronosticoEntity = pronosticoClimaRepository.findDistinctClimaByDiaEntero(dia);
-			
-//		Map<String, Long> mapCantidadDiasXClimaXCiclo =
-//				listPronosticoEntity.stream()
-//		        	.collect( //en el metodo collect se especifican las funciones de agregacion
-//		                Collectors.groupingBy( // deseamos agrupar
-//		                		PronosticoClima::getClima, // agrupamos por clima
-//		                        Collectors.counting() // realizamos el conteo
-//		                    )
-//		                );
-//		
-//		mapCantidadDiasXClimaXCiclo.forEach((k, v) -> {
-//			System.out.println(k + ":" + v);
-//			listPronosticoDTO.add(new PronosticoClimaDiaDTO(dia, k));
-//		});
-		
-		//listPronosticoEntity.forEach(p -> listPronosticoDTO.add(new PronosticoClimaDiaDTO(p.getDiaEntero(), p.getClima())));
-		
+	
 		int tiempoHoraMinutoSegundo = 0;
 		for (PronosticoClima pronosticoClima : listPronosticoEntity) {
 			listPronosticoDTO.add(new PronosticoClimaDiaDTO(dia, tiempoHoraMinutoSegundo, pronosticoClima.getClima(), global.getFrecuenciaMuestreo()));
@@ -198,30 +163,15 @@ public class IPronosticoClimaServiceImpl implements IPronosticoClimaService {
 		int diasFuturos10Anios = global.getCantidadDiasFuturos();
         int cantCiclos = diasFuturos10Anios / ciclo;
         int diasExtrasEnDecada = diasFuturos10Anios % ciclo;
-        
-//		List<PronosticoClima> listPronosticosDeUnCiclo = (List<PronosticoClima>) pronosticoClimaRepository.findAll();
-//		// Agrupo y cuento la cantidad de dias que hay de cada clima en un clico:
-//		Map<String, Long> mapCantidadDiasXClimaXCiclo =
-//				listPronosticosDeUnCiclo.stream().collect(Collectors.groupingBy(PronosticoClima::getClima, Collectors.counting()));
-//		
-//		this.mapearPeriodos(mapCantidadDiasXClimaXCiclo, cantCiclos, listPeriodoClimaDTO);
-//		
-//        if(diasExtrasEnDecada > 0){
-//            listPronosticosDeUnCiclo = pronosticoClimaRepository.findByDiaEnteroLessThan(diasExtrasEnDecada);
-//            mapCantidadDiasXClimaXCiclo =
-//            		listPronosticosDeUnCiclo.stream().collect(Collectors.groupingBy(PronosticoClima::getClima, Collectors.counting()));
-//            
-//            this.mapearPeriodos(mapCantidadDiasXClimaXCiclo, cantCiclos, listPeriodoClimaDTO);
-//        }
-        
+               
         List<PeriodoClimaDTO> listPronosticosDeUnCiclo = pronosticoClimaRepository.findAllDistinctDiaGroupByClima();
 		
-		this.mapearPeriodos2(listPronosticosDeUnCiclo, cantCiclos, listPeriodoClimaDTO);
+		this.sumarDiasXAnios(listPronosticosDeUnCiclo, cantCiclos, listPeriodoClimaDTO);
 				
         if(diasExtrasEnDecada > 0){
             listPronosticosDeUnCiclo = pronosticoClimaRepository.findDistinctDiaGroupByClimaWhereDiaEnteroLessThan(diasExtrasEnDecada);
 
-            this.mapearPeriodos2(listPronosticosDeUnCiclo, cantCiclos, listPeriodoClimaDTO);
+            this.sumarDiasXAnios(listPronosticosDeUnCiclo, cantCiclos, listPeriodoClimaDTO);
         }
         
         //Controlo si hay algun clima que no se haya presentado y le seteo 0 días
@@ -231,40 +181,52 @@ public class IPronosticoClimaServiceImpl implements IPronosticoClimaService {
 	}
 
 	@Override
-	public PicoLluviaDTO getPicoLluviaEnFuturos10Anios() {
-		// TODO Auto-generated method stub
-		Sort sort = new Sort("perimetro").descending();
-		//PronosticoClima pronostico = pronosticoClimaRepository.findFirst10ByClima(PeriodoClimaBO.LLUVIA.getDescripcion(), sort);
+	public List<PicoLluviaDTO> getPicoLluviaEnFuturos10Anios() {
+
+		List<PicoLluviaDTO> listPicosLluvia = new ArrayList<PicoLluviaDTO>();
 		
-		List<PronosticoClima> pronosticos = pronosticoClimaRepository.findFirst10ByClima(PeriodoClimaBO.LLUVIA.getDescripcion(), sort);
+		PronosticoClima pronostico = pronosticoClimaRepository.findFirstByOrderByPerimetroDesc();
 		
-		if(pronosticos.size() > 0 ) {
-			PronosticoClima pronostico = pronosticos.get(0); 
-			if(pronostico!=null && pronostico.getPerimetro() > 0) {
-				return new PicoLluviaDTO(pronostico.getDiaEntero(), "El perimietro del triangulo del día es: " + pronostico.getPerimetro());	
-			}
-		}
+		//hay algun pico de lluvia?
+		if(pronostico.getPerimetro() > 0 ) {
+			
+			//recupero los pronosticos que tengan el mismo perimetro maximo
+			List<PronosticoClima> pronosticosPicoLluvia = pronosticoClimaRepository.findByPerimetro(pronostico.getPerimetro());
+			
+			if(pronosticosPicoLluvia.size() > 0 ) {
+
+				int ciclo = Integer.parseInt(global.getCicloOrbital());
+				int futuros10Anios = Integer.parseInt(global.getCantidadAniosFuturos());
+
+				pronosticosPicoLluvia.forEach(p -> {
+					//seteo el dia del primer año
+					listPicosLluvia.add(new PicoLluviaDTO(p.getDiaEntero(), "El perímetro del triangulo del día es: " + p.getPerimetro()));
+					
+					//seteo el dia en los años futuros
+					for(int i = 1; i < futuros10Anios; i++  ) {
+						int diaAnioFuturo = p.getDiaEntero() + ( i * ciclo );
+						listPicosLluvia.add(new PicoLluviaDTO(diaAnioFuturo, "El perímetro del triangulo del día es: " + p.getPerimetro()));
+					}
+				});
+				
+				List<PicoLluviaDTO> sortedListPicosLluvia = listPicosLluvia.stream()
+						.sorted(Comparator.comparingInt(PicoLluviaDTO::getDia))
+						.collect(Collectors.toList());
+				
+				return sortedListPicosLluvia;
+			}			
 		
-		return new PicoLluviaDTO(-1, "En los días de lluvia no se registra un pico de intesidad.");
+		} 
+		
+		//si no hay pronosticos con dias lluviosos devuelvo el siguiente mensaje:
+		listPicosLluvia.add(new PicoLluviaDTO(-1, "En los días de lluvia no se registra un pico de intesidad."));
+		
+		return listPicosLluvia;
+		 
 	}
 	
-//	private void mapearPeriodos(Map<String, Long> map, int cantCiclos, List<PeriodoClimaDTO> listPeriodosClima ) {
-//        		
-//		map.forEach((k, v) -> {
-//			//System.out.println(k + ":" + v);
-//			PeriodoClimaDTO periodoClimaDTO = new PeriodoClimaDTO(k, v.intValue());
-//			if(listPeriodosClima.contains(periodoClimaDTO)) {
-//				int index = listPeriodosClima.indexOf(periodoClimaDTO);
-//				listPeriodosClima.get(index).addCantidadDias((periodoClimaDTO.getCantidadDias()) );
-//			} else {
-//				int diasX10Anios = cantCiclos * (periodoClimaDTO.getCantidadDias());
-//				periodoClimaDTO.setCantidadDias(diasX10Anios);
-//				listPeriodosClima.add(periodoClimaDTO);
-//			}
-//		});
-//    }
 	
-	private void mapearPeriodos2(List<PeriodoClimaDTO> listPeriodoClima, int cantCiclos, List<PeriodoClimaDTO> listPeriodosClima ) {
+	private void sumarDiasXAnios(List<PeriodoClimaDTO> listPeriodoClima, int cantCiclos, List<PeriodoClimaDTO> listPeriodosClima ) {
 		
 		listPeriodoClima.forEach(p -> {
 			
@@ -278,6 +240,7 @@ public class IPronosticoClimaServiceImpl implements IPronosticoClimaService {
 				periodoClimaDTO.setCantidadDiasInt(diasX10Anios);
 				listPeriodosClima.add(periodoClimaDTO);
 			}
+			
 		});
     }
 	

@@ -46,9 +46,9 @@ public interface IPronosticoClimaService {
     public List<PeriodoClimaDTO> getCantidadDiasDeUnClimaEnFuturos10Anios();	
     
     /**
-     * @return Devuelve el dia con pico de lluvia en un ciclo x 10 años
+     * @return Devuelve la lista de dias con pico de lluvia en un ciclo x 10 años
      */
-    public PicoLluviaDTO getPicoLluviaEnFuturos10Anios();
+    public List<PicoLluviaDTO> getPicoLluviaEnFuturos10Anios();
     
     /**
      * @return Devuelve la cantidad de pronosticos relevados

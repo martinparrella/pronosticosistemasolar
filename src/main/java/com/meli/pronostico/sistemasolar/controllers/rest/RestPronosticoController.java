@@ -146,16 +146,16 @@ public class RestPronosticoController {
 	 * @return el pico maximo de lluvia en los proximos 10 años.
 	 */
 	@RequestMapping("/en-una-decada/pico-maximo-intensidad-lluvia")
-	public ResponseEntity<PicoLluviaDTO> picoLluviaMaximaIntensidad() {
+	public ResponseEntity<List<PicoLluviaDTO>> picoLluviaMaximaIntensidad() {
 		try {
 			int ciclo = Integer.parseInt(global.getCicloOrbital());
 			
 			//valido que al consumir este recurso, el sistema no este pronosticando el clima
 			this.isSistemaPronosticando(ciclo);
 
-			PicoLluviaDTO picoLluvia = pronosticoClimaService.getPicoLluviaEnFuturos10Anios();
+			List<PicoLluviaDTO> listPicosLluvia = pronosticoClimaService.getPicoLluviaEnFuturos10Anios();
 
-			return new ResponseEntity<PicoLluviaDTO>(picoLluvia, HttpStatus.OK);
+			return new ResponseEntity<List<PicoLluviaDTO>>(listPicosLluvia, HttpStatus.OK);
 
 		} catch (Exception e) {
 			throw e;
@@ -180,9 +180,9 @@ public class RestPronosticoController {
 
 			List<PeriodoClimaDTO> listPeriodosClima = pronosticoClimaService.getCantidadDiasDeUnClimaEnFuturos10Anios();
 
-			PicoLluviaDTO picoLluvia = pronosticoClimaService.getPicoLluviaEnFuturos10Anios();
+			List<PicoLluviaDTO> listPicosLluvia = pronosticoClimaService.getPicoLluviaEnFuturos10Anios();
 
-			PronosticoClimaDTO pronosticoClimaDTO = new PronosticoClimaDTO(listPeriodosClima, picoLluvia);
+			PronosticoClimaDTO pronosticoClimaDTO = new PronosticoClimaDTO(listPeriodosClima, listPicosLluvia);
 
 			return new ResponseEntity<PronosticoClimaDTO>(pronosticoClimaDTO, HttpStatus.OK);
 

@@ -47,17 +47,11 @@ public class PronosticoController {
     	
     	List<PeriodoClimaDTO> listPeriodosClima = pronosticoClimaService.getCantidadDiasDeUnClimaEnFuturos10Anios();
 
-//		List<String> pronosticos = new ArrayList<String>();
-//		listPeriodosClima.forEach(pc -> {
-//			mensaje.append("Clima: " ).append(pc.getClima().toUpperCase()).append(" - Cantidad de días: ").append(pc.getCantidadDiasInt()).append("\n");
-//			pronosticos.add(mensaje.toString());
-//		});
-		
 		model.addAttribute("pronosticos", listPeriodosClima);
 		
-		PicoLluviaDTO picoLluvia = pronosticoClimaService.getPicoLluviaEnFuturos10Anios();
+		List<PicoLluviaDTO> listPicosLluvia = pronosticoClimaService.getPicoLluviaEnFuturos10Anios();
     	
-		model.addAttribute("picoLluvia", picoLluvia);
+		model.addAttribute("picosLluvia", listPicosLluvia);
 		
         return "pronostico";
     }

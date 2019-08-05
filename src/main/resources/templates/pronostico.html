@@ -15,8 +15,12 @@
         <li><b><span th:text="${pronostico.cantidadDiasInt}" /></b> d&iacute;as, tendr&aacute;n un per&iacute;odo con clima <b><span th:text="${pronostico.clima.toUpperCase()}" /></b></li>
     </ul>
    
-   <h3>Día con pico m&aacute;ximo de lluvia: </h3>
-   Día <b><span th:text="${picoLluvia.dia}" /></b>  (<span th:text="${picoLluvia.mensaje}" />) 
+   <h3>Días con picos m&aacute;ximo de lluvia: </h3>
+   
+   <ul th:each="picoLluvia: ${picosLluvia}">
+   		<li>Día <b><span th:text="${picoLluvia.dia}" /></b>  (<span th:text="${picoLluvia.mensaje}" />)</li>
+   </ul>
+    
     
     <p><a href="/">Volver</a></p>
 </body>

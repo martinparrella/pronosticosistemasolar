@@ -26,10 +26,18 @@ Opcionalmente, si desean revisar el codigo o actualizar la aplicación en GCP, s
 * [Spring Tools Suite](https://spring.io/tools) (IDE Eclipse utilizado para desarrollo)
 * [Google Cloud SDK](https://cloud.google.com/sdk/) (gcloud command line tool)
 
+## Acceso WEB
+Además de la API, se puede acceder al sitio web, para obtener el pronostico del clima:  
+https://meli-galaxia.appspot.com/  
+Accediendo al sitio, se puede consultar la cantidad de días de cierto clima (sequia, lluvia, optimo, normal) y el día con pico máximo de lluvia para los próximos 10 años. O sea, esto **contesta las preguntas del enunciado del problema, que eran**:
+Predecir en los próximos 10 años:
+1. ¿Cuántos períodos de sequía habrá?  
+2. ¿Cuántos períodos de lluvia habrá y qué día será el pico máximo de lluvia?  
+3. ¿Cuántos períodos de condiciones óptimas de presión y temperatura habrá?  
 
 ## Acceso y uso de la API
-Según desde donde se acceda a la API, ofrecemos los siguientes recursos.
-En todos los casos se debe setear en los Headers `Key: Accept - Value: application/json`
+La API ofrece los siguientes recursos. 
+En todos los casos se recomienda setear en los Headers del llamado GET `Key: Accept - Value: application/json`  
 
 #### Despliegue en Google Cloud con App Engine Standard
 La API se encuentra hosteada en GCP [App Engine Standard](https://cloud.google.com/appengine/docs/standard/java/) y como almacenamiento usa base de datos `MySQL 2.ª gen. 5.7` en [Google Cloud MySQL](https://cloud.google.com/sql/docs/mysql/quickstart).
@@ -37,7 +45,7 @@ Para acceder a la API se ofrecen los siguientes recursos:
 * Inicio:  
   https://meli-galaxia.appspot.com/api/sistemasolar/pronostico/  
     
-* Consultar durante los próximos 10 años, el clima de un día: <br/>
+* Consultar durante los próximos 10 años, el clima de un día. Esto es lo que requería el enuncunciado del problema, que era **generar una API REST la cual devuelve en formato JSON la condición climática del día consultado**: <br/>
   https://meli-galaxia.appspot.com/api/sistemasolar/pronostico/clima?dia=0  <br/>
 
 
@@ -59,8 +67,9 @@ dia=3680  => { "fecha": "04-08-2019 04:02:04",
              }  
 ```
 
-* Consultar la cantidad de días de cierto clima (sequia, lluvia, optimo, normal) y el día con pico máximo de lluvia para los próximos 10 años:  
+* Consultar la cantidad de días de cierto clima (sequia, lluvia, optimo, normal) y el día o días con pico máximo de lluvia para los próximos 10 años. Esta es otra manera de acceder a la respuesta del problema, o sea que esto tambien **contesta las preguntas del enunciado del problema mencionadas anteriormente**: <br/>
   https://meli-galaxia.appspot.com/api/sistemasolar/pronostico/en-una-decada/cantidad-diasxclima-con-pico-lluvia  
+
 Response
 ```
 {
@@ -105,12 +114,6 @@ Response
     ]
 }
 ```
-
-## Acceso WEB
-Además de la API, se puede acceder al sitio web, para obtener el pronostico del clima:  
-https://meli-galaxia.appspot.com/  
-Accediendo al sitio, se puede consultar la cantidad de días de cierto clima (sequia, lluvia, optimo, normal) y el día con pico máximo de lluvia para los próximos 10 años.  
-
 
 ## Instrucciones instalación local
 Para analizar el código o ejecutar la aplicación localmente se deben seguir los siguientes pasos:

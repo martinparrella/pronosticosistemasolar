@@ -125,13 +125,13 @@ git clone https://github.com/martinparrella/pronosticosistemasolar.git
 * Desde la linea de comandos, ubicarse en el directorio donde se haya descargado el proyecto y ejecutar:<br/>
 `mvnw -DskipTests spring-boot:run`
 * Desde el browser o con algún cliente REST (Postman, SoapUI o alguna extensión de tipo rest client de Google Chrome) hacer un GET a la URL 
-http://localhost:8080/api/pronostico/sistemasolar/
+http://localhost:8080/api/sistemasolar/pronostico/  
 
 #### Ejecución desde el IDE Eclipse
 * Desde Spring Tools Suite importar como proyecto Maven.  `File -> Import -> Maven -> Existing Maven project`
 * Sobre el proyecto ejecutar `Run As -> Maven Install` y luego ejecutar `Run As -> Spring Boot App` 
 * Desde el browser o con algún cliente REST (Postman, SoapUI o alguna extensión de tipo rest client de Google Chrome) hacer un GET a la URL 
-http://localhost:8080/api/pronostico/sistemasolar/
+http://localhost:8080/api/sistemasolar/pronostico/  
 
 #### Configuraciones disponibles
 Los siguientes parámetros de configuración de la aplicación se encuentran disponibles en el archivo de configuración  `src\main\resources\application.properties`. El mismo se pueden editar ante cambios en los datos de entrada con el cuenta actualmente el servicio de pronóstico. Ante cambios de configuración se debe realizar un deploy de la aplicación.  
